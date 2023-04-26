@@ -10,6 +10,12 @@ public class EnemyScript : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
 
     public int health;
+    public int bulletDamage;
+    public AudioSource audiosource;
+    public AudioClip hitMarker;
+    public AudioSource deathSource;
+    public AudioClip deathSound;
+    public GameObject deathEffect;
 
     [Header("Patrolling")]
     public Vector3 walkPoint;
@@ -20,6 +26,7 @@ public class EnemyScript : MonoBehaviour
     public float timeBetweenAttacks;
     bool alreadyAttacked;
     public GameObject bullet;
+    public Transform firePoint;
 
     [Header("States")]
     public float sightRange, attackRange;
@@ -50,6 +57,17 @@ public class EnemyScript : MonoBehaviour
             Attacking();
         }
     }
+
+    private void OnTriggerEnter(Collider collide)
+    {
+        if (collide.gameObject.tag == "Bullet")
+        {
+            TakeDamage(bulletDamage);
+            //Debug.Log("beans");
+        }
+    }
+
+    #region Functions
 
     private void Patrolling()
     {
@@ -98,9 +116,10 @@ public class EnemyScript : MonoBehaviour
         if (!alreadyAttacked)
         {
             //Attack Code goes here
-            Rigidbody rb = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            /*Rigidbody rb = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            rb.AddForce(transform.up * 8f, ForceMode.Impulse);*/
+            Instantiate(bullet, firePoint.position, firePoint.rotation);
 
             //
 
@@ -118,9 +137,15 @@ public class EnemyScript : MonoBehaviour
     {
         health -= damage;
 
+        audiosource.PlayOneShot(hitMarker);
+
+        agent.SetDestination(player.position);
+
         if (health <= 0)
         {
-            Invoke(nameof(DestroyEnemy), 0.5f);
+            deathSource.PlayOneShot(deathSound);
+            Instantiate(deathEffect, transform.position, transform.rotation);
+            Invoke(nameof(DestroyEnemy), 0.1f);
         }
     }
 
@@ -129,3 +154,5 @@ public class EnemyScript : MonoBehaviour
         Destroy(gameObject);
     }
 }
+
+#endregion
