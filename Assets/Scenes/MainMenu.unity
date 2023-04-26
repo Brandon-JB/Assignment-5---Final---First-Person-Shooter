@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_text: "Music: \"Eighties Action\" on Imcompetech.\nSounds: All found on freesound.org:
     \"Male Voice - Oh no\" by Jagadamba, \"GUNSHOT.WAV\" by erkanozan, \n\"Hitmarker
     Sound Effect.mp3\" by aruscio28, \"8 bit Death sound\" by MentosLat, \"Whoosh\"
-    by qubodup,\n \"1911 Reload\" by nioczkus."
+    by qubodup,\n \"1911 Reload\" by nioczkus, \"Success Jingle by JustInvoke."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
